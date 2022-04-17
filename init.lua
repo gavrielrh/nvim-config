@@ -1,4 +1,5 @@
 require('plugins')
+require('lsp_settings')
 
 vim.g.mapleader = ' '
 vim.opt.number = true
