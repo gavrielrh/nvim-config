@@ -16,5 +16,7 @@ return require('packer').startup(function()
   use 'tpope/vim-fugitive'
 
   use 'gruvbox-community/gruvbox'
+
+  use 'mbbill/undotree'
 end)
 

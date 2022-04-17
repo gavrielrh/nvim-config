@@ -53,6 +53,13 @@ vim.api.nvim_set_keymap(
     {noremap = true}
 )
 
+vim.api.nvim_set_keymap(
+    'n',
+    '<F5>',
+    ':UndotreeToggle<CR>',
+    {noremap = true}
+)
+
 vim.cmd [[
     colorscheme gruvbox
     highlight Normal guibg=none
