@@ -61,6 +61,20 @@ vim.api.nvim_set_keymap(
     {noremap = true}
 )
 
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>t',
+    ':terminal<CR>',
+    {noremap = true}
+)
+
+vim.api.nvim_set_keymap(
+    't',
+    '<Leader><Esc>',
+    '<C-\\><C-n>',
+    {noremap = true}
+)
+
 vim.cmd [[
     colorscheme gruvbox
     highlight Normal guibg=none
