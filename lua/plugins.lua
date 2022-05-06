@@ -7,16 +7,45 @@ return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  -- LSP!!
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
 
+  -- Telescope
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
+  -- Git
   use 'tpope/vim-fugitive'
 
+  -- Colorscheme
   use 'gruvbox-community/gruvbox'
 
+  -- Undotree
   use 'mbbill/undotree'
+
+  -- Tmux
+  use 'christoomey/vim-tmux-navigator'
+  use 'christoomey/vim-tmux-runner'
+
+  -- Markdown preview
+  use {"ellisonleao/glow.nvim", branch = 'main'}
+
+  -- Completion
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'onsails/lspkind.nvim'
+
+  -- Comments
+  use { 'numToStr/Comment.nvim' }
+
+  -- Debugging
+  use 'mfussenegger/nvim-dap'
+  use 'mfussenegger/nvim-dap-python'
 end)
 

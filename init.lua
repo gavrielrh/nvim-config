@@ -1,5 +1,9 @@
 require('plugins')
 require('lsp_settings')
+require('completion')
+require('treesitter')
+
+require('Comment').setup()
 
 vim.g.mapleader = ' '
 vim.opt.number = true
@@ -29,6 +33,54 @@ vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.colorcolumn = '80'
 vim.opt.signcolumn = 'yes'
 
+local dap = require('dap')
+dap.adapters.php = {
+  type = 'executable',
+  command = 'node',
+  args = { '/Users/grachaelhomann/vscode-php-debug/out/phpDebug.js' }
+}
+
+dap.configurations.php = {
+  {
+    type = 'php',
+    request = 'launch',
+    name = 'Listen for Xdebug',
+    port = 9000,
+  }
+}
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>b',
+    "<cmd>lua require'dap'.toggle_breakpoint()<CR>",
+    {noremap = true}
+)
+
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>bc',
+    "<cmd>lua require'dap'.continue()<CR>",
+    {noremap = true}
+)
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>bo',
+    "<cmd>lua require'dap'.step_over()<CR>",
+    {noremap = true}
+)
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>bi',
+    "<cmd>lua require'dap'.step_into()<CR>",
+    {noremap = true}
+)
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>br',
+    "<cmd>lua require'dap'.repl.open()<CR>",
+    {noremap = true}
+)
 vim.api.nvim_set_keymap(
     'n',
     '<Leader>ff',
@@ -63,6 +115,13 @@ vim.api.nvim_set_keymap(
 
 vim.api.nvim_set_keymap(
     'n',
+    '<Leader>p',
+    ':Glow<CR>',
+    {noremap = true}
+)
+
+vim.api.nvim_set_keymap(
+    'n',
     '<Leader>t',
     ':terminal<CR>',
     {noremap = true}
@@ -75,8 +134,24 @@ vim.api.nvim_set_keymap(
     {noremap = true}
 )
 
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>n',
+    ':set relativenumber!<CR>',
+    {noremap = true}
+)
+
 vim.cmd [[
     colorscheme gruvbox
     highlight Normal guibg=none
+    " automatically rebalance windows on vim resize
+    autocmd VimResized * :wincmd =
+    " zoom a vim pane, <C-w>= to re-balance
+    nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+    nnoremap <leader>= :wincmd =<cr>
+    let g:VtrStripLeadingWhitespace = 0
+    let g:VtrClearEmptyLines = 0
+    let g:VtrAppendNewline = 1
+    let g:loaded_perl_provider = 0
 ]]
 
