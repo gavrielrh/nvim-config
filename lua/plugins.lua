@@ -9,7 +9,7 @@ return require('packer').startup(function()
 
   -- LSP!!
   use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall'
+  use "williamboman/nvim-lsp-installer"
 
   -- Telescope
   use 'nvim-lua/plenary.nvim'
