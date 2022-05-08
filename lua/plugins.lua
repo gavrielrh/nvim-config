@@ -48,5 +48,8 @@ return require('packer').startup(function()
   -- Debugging
   use 'mfussenegger/nvim-dap'
   use 'mfussenegger/nvim-dap-python'
+
+  -- Personal
+  use '/home/mudribbit/plugins/stackmap.nvim'
 end)
 

@@ -1,4 +1,5 @@
 require('plugins')
+require('globals')
 require('lsp_settings')
 require('completion')
 require('treesitter')
@@ -138,6 +139,13 @@ vim.api.nvim_set_keymap(
     'n',
     '<Leader>n',
     ':set relativenumber!<CR>',
+    {noremap = true}
+)
+
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader><Leader>x',
+    ':w<CR>:source %<CR>',
     {noremap = true}
 )
 
