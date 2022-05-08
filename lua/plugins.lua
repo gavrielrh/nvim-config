@@ -21,6 +21,7 @@ return require('packer').startup(function()
 
   -- Colorscheme
   use 'gruvbox-community/gruvbox'
+  -- use 'sonph/onehalf'
 
   -- Undotree
   use 'mbbill/undotree'
@@ -49,7 +50,11 @@ return require('packer').startup(function()
   use 'mfussenegger/nvim-dap'
   use 'mfussenegger/nvim-dap-python'
 
+  -- Docs
+  use 'nanotee/luv-vimdocs'
+  use 'milisims/nvim-luaref'
+
   -- Personal
-  use '/home/mudribbit/plugins/stackmap.nvim'
+  -- use '/home/mudribbit/plugins/stackmap.nvim'
 end)
 

@@ -124,6 +124,13 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
     'n',
     '<Leader>t',
+    '<Plug>PlenaryTestFile',
+    {noremap = true}
+)
+
+vim.api.nvim_set_keymap(
+    'n',
+    '<Leader>tr',
     ':terminal<CR>',
     {noremap = true}
 )
