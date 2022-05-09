@@ -10,6 +10,8 @@ require('completion')
 require('treesitter')
 -- Just use gcc for comment (works in visual/visual line mode as well)
 require('Comment').setup()
+-- Luasnip settings
+require('luasnip_settings')
 
 local user = os.getenv("USER")
 local homedir = os.getenv("HOME")
@@ -65,6 +67,24 @@ local nnoremap = function(lhs, rhs, opts)
     vim.keymap.set('n', lhs, rhs, opts)
 end
 
+local random_pokemon = function()
+    local res = require("pokeapi").get_resources("pokemon", 100000, 0)
+    local results = res['results']
+    local index = math.random(1, #results)
+    return results[index]['name']
+end
+
+local pokedex = function(pokemon)
+    local res = require("pokeapi").get_resource("pokemon", pokemon)
+    return res
+end
+
+-- P(random_pokemon())
+-- P(pokedex("mew"))
+
+-- Pokemon
+-- nnoremap('<Leader>p', "<cmd>lua ")
+
 -- Debugging
 nnoremap('<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
 nnoremap('<Leader>bc', "<cmd>lua require'dap'.continue()<CR>")
@@ -82,7 +102,7 @@ nnoremap('<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nnoremap('<F5>', ':UndotreeToggle<CR>')
 
 -- Markdown formatting
-nnoremap('<Leader>p', ':Glow<CR>')
+-- nnoremap('<Leader>p', ':Glow<CR>')
 
 -- Testing lua plugins (_spec.lua)
 nnoremap('<Leader>t', '<Plug>PlenaryTestFile')
