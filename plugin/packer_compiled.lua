@@ -119,6 +119,11 @@ _G.packer_plugins = {
     path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
     url = "https://github.com/onsails/lspkind.nvim"
   },
+  ["luv-vimdocs"] = {
+    loaded = true,
+    path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/luv-vimdocs",
+    url = "https://github.com/nanotee/luv-vimdocs"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -144,6 +149,11 @@ _G.packer_plugins = {
     path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-luaref"] = {
+    loaded = true,
+    path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/nvim-luaref",
+    url = "https://github.com/milisims/nvim-luaref"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -159,10 +169,10 @@ _G.packer_plugins = {
     path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["stackmap.nvim"] = {
+  ["pokeapi.nvim"] = {
     loaded = true,
-    path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/stackmap.nvim",
-    url = "/home/mudribbit/plugins/stackmap.nvim"
+    path = "/home/mudribbit/.local/share/nvim/site/pack/packer/start/pokeapi.nvim",
+    url = "/home/mudribbit/plugins/pokeapi.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,

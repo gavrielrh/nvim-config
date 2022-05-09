@@ -56,5 +56,6 @@ return require('packer').startup(function()
 
   -- Personal
   -- use '/home/mudribbit/plugins/stackmap.nvim'
+  use '/home/mudribbit/plugins/pokeapi.nvim'
 end)
 

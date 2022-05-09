@@ -1,10 +1,18 @@
+-- Plugins... duh
 require('plugins')
+-- Some helpful functions for inspecting lua globals (P(table), R(module))
 require('globals')
+-- Settings for the builtin LSP
 require('lsp_settings')
+-- Settings for autocomplete
 require('completion')
+-- Settings for built in treesitter
 require('treesitter')
-
+-- Just use gcc for comment (works in visual/visual line mode as well)
 require('Comment').setup()
+
+local user = os.getenv("USER")
+local homedir = os.getenv("HOME")
 
 vim.g.mapleader = ' '
 vim.opt.number = true
@@ -25,7 +33,7 @@ vim.opt.errorbells = false
 vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.backup = false
-vim.opt.undodir = '~/.vim/undodir'
+vim.opt.undodir = homedir .. '/.vim/undodir'
 vim.opt.undofile = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
@@ -38,7 +46,7 @@ local dap = require('dap')
 dap.adapters.php = {
   type = 'executable',
   command = 'node',
-  args = { '/Users/grachaelhomann/vscode-php-debug/out/phpDebug.js' }
+  args = { homedir .. '/vscode-php-debug/out/phpDebug.js' }
 }
 
 dap.configurations.php = {
@@ -49,112 +57,46 @@ dap.configurations.php = {
     port = 9000,
   }
 }
-require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+require('dap-python').setup(homedir .. '/.virtualenvs/debugpy/bin/python')
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>b',
-    "<cmd>lua require'dap'.toggle_breakpoint()<CR>",
-    {noremap = true}
-)
+local nnoremap = function(lhs, rhs, opts)
+    opts = opts or {}
+    opts.noremap = true
+    vim.keymap.set('n', lhs, rhs, opts)
+end
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>bc',
-    "<cmd>lua require'dap'.continue()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>bo',
-    "<cmd>lua require'dap'.step_over()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>bi',
-    "<cmd>lua require'dap'.step_into()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>br',
-    "<cmd>lua require'dap'.repl.open()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>ff',
-    "<cmd>lua require('telescope.builtin').find_files()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>fg',
-    "<cmd>lua require('telescope.builtin').live_grep()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>fb',
-    "<cmd>lua require('telescope.builtin').buffers()<CR>",
-    {noremap = true}
-)
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>fh',
-    "<cmd>lua require('telescope.builtin').help_tags()<CR>",
-    {noremap = true}
-)
+-- Debugging
+nnoremap('<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
+nnoremap('<Leader>bc', "<cmd>lua require'dap'.continue()<CR>")
+nnoremap('<Leader>bo', "<cmd>lua require'dap'.step_over()<CR>")
+nnoremap('<Leader>bi', "<cmd>lua require'dap'.step_into()<CR>")
+nnoremap('<Leader>br', "<cmd>lua require'dap'.repl.open()<CR>")
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<F5>',
-    ':UndotreeToggle<CR>',
-    {noremap = true}
-)
+-- Telescope!!
+nnoremap('<Leader>ff', "<cmd>lua require('telescope.builtin').find_files()<CR>")
+nnoremap('<Leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+nnoremap('<Leader>fb', "<cmd>lua require('telescope.builtin').buffers()<CR>")
+nnoremap('<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>p',
-    ':Glow<CR>',
-    {noremap = true}
-)
+-- Undotree
+nnoremap('<F5>', ':UndotreeToggle<CR>')
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>t',
-    '<Plug>PlenaryTestFile',
-    {noremap = true}
-)
+-- Markdown formatting
+nnoremap('<Leader>p', ':Glow<CR>')
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>tr',
-    ':terminal<CR>',
-    {noremap = true}
-)
+-- Testing lua plugins (_spec.lua)
+nnoremap('<Leader>t', '<Plug>PlenaryTestFile')
 
-vim.api.nvim_set_keymap(
-    't',
-    '<Leader><Esc>',
-    '<C-\\><C-n>',
-    {noremap = true}
-)
+-- Opening up the terminal?
+nnoremap('<Leader>tr', ':terminal<CR>')
+-- Getting out of the terminal
+vim.keymap.set('t', '<Leader><Esc>', '<C-\\><C-n>', {noremap = true})
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader>n',
-    ':set relativenumber!<CR>',
-    {noremap = true}
-)
+-- When sharing screen to toggle normal line numbers
+nnoremap('<Leader>n', ':set relativenumber!<CR>')
 
-vim.api.nvim_set_keymap(
-    'n',
-    '<Leader><Leader>x',
-    ':w<CR>:source %<CR>',
-    {noremap = true}
-)
+-- Save/source the currently opened file
+nnoremap('<Leader><Leader>x', ':w<CR>:source %<CR>')
 
 vim.cmd [[
     colorscheme gruvbox
