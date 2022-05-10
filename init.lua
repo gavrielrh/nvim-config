@@ -6,14 +6,8 @@ require('globals')
 require('lsp_settings')
 -- Settings for autocomplete
 require('completion')
--- Settings for built in treesitter
-require('treesitter')
--- Just use gcc for comment (works in visual/visual line mode as well)
-require('Comment').setup()
--- Luasnip settings
-require('luasnip_settings')
 
-local user = os.getenv("USER")
+-- local user = os.getenv("USER")
 local homedir = os.getenv("HOME")
 
 vim.g.mapleader = ' '
@@ -44,91 +38,102 @@ vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.colorcolumn = '80'
 vim.opt.signcolumn = 'yes'
 
-local dap = require('dap')
-dap.adapters.php = {
-  type = 'executable',
-  command = 'node',
-  args = { homedir .. '/vscode-php-debug/out/phpDebug.js' }
-}
-
-dap.configurations.php = {
-  {
-    type = 'php',
-    request = 'launch',
-    name = 'Listen for Xdebug',
-    port = 9000,
-  }
-}
-require('dap-python').setup(homedir .. '/.virtualenvs/debugpy/bin/python')
-
-local nnoremap = function(lhs, rhs, opts)
-    opts = opts or {}
-    opts.noremap = true
-    vim.keymap.set('n', lhs, rhs, opts)
+local map = function(mode, lhs, rhs, opts)
+    opts = opts or {
+        noremap = true,
+        silent = true
+    }
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 local random_pokemon = function()
     local res = require("pokeapi").get_resources("pokemon", 100000, 0)
-    local results = res['results']
-    local index = math.random(1, #results)
-    return results[index]['name']
+    if res then
+        local results = res['results']
+        local index = math.random(1, #results)
+        return results[index]['name']
+    end
 end
 
-local pokedex = function(pokemon)
-    local res = require("pokeapi").get_resource("pokemon", pokemon)
-    return res
+local insert_random_pokemon = function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local row = pos[1] - 1
+    local col = pos[2]
+    local pokemon = random_pokemon() .. " "
+    vim.api.nvim_buf_set_text(0, row, col, row, col, { pokemon })
+    vim.api.nvim_win_set_cursor(0, { row + 1, col + #pokemon })
 end
 
--- P(random_pokemon())
--- P(pokedex("mew"))
-
--- Pokemon
--- nnoremap('<Leader>p', "<cmd>lua ")
+map('i', '<C-P>', insert_random_pokemon)
 
 -- Debugging
-nnoremap('<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
-nnoremap('<Leader>bc', "<cmd>lua require'dap'.continue()<CR>")
-nnoremap('<Leader>bo', "<cmd>lua require'dap'.step_over()<CR>")
-nnoremap('<Leader>bi', "<cmd>lua require'dap'.step_into()<CR>")
-nnoremap('<Leader>br', "<cmd>lua require'dap'.repl.open()<CR>")
+map('n', '<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
+map('n', '<Leader>bc', "<cmd>lua require'dap'.continue()<CR>")
+map('n', '<Leader>bo', "<cmd>lua require'dap'.step_over()<CR>")
+map('n', '<Leader>bi', "<cmd>lua require'dap'.step_into()<CR>")
+map('n', '<Leader>br', "<cmd>lua require'dap'.repl.open()<CR>")
 
 -- Telescope!!
-nnoremap('<Leader>ff', "<cmd>lua require('telescope.builtin').find_files()<CR>")
-nnoremap('<Leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>")
-nnoremap('<Leader>fb', "<cmd>lua require('telescope.builtin').buffers()<CR>")
-nnoremap('<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>")
+map('n', '<Leader>ff', "<cmd>lua require('telescope.builtin').find_files()<CR>")
+map('n', '<Leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+map('n', '<Leader>fb', "<cmd>lua require('telescope.builtin').buffers()<CR>")
+map('n', '<Leader>fr', "<cmd>lua require('telescope.builtin').registers()<CR>")
+map('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 
 -- Undotree
-nnoremap('<F5>', ':UndotreeToggle<CR>')
+map('n', '<F5>', ':UndotreeToggle<CR>')
 
 -- Markdown formatting
 -- nnoremap('<Leader>p', ':Glow<CR>')
 
 -- Testing lua plugins (_spec.lua)
-nnoremap('<Leader>t', '<Plug>PlenaryTestFile')
+map('n', '<Leader>t', '<Plug>PlenaryTestFile')
 
 -- Opening up the terminal?
-nnoremap('<Leader>tr', ':terminal<CR>')
+map('n', '<Leader>tr', ':terminal<CR>')
 -- Getting out of the terminal
-vim.keymap.set('t', '<Leader><Esc>', '<C-\\><C-n>', {noremap = true})
+map('t', '<Leader><Esc>', '<C-\\><C-n>')
 
 -- When sharing screen to toggle normal line numbers
-nnoremap('<Leader>n', ':set relativenumber!<CR>')
+map('n', '<Leader>n', ':set relativenumber!<CR>')
 
 -- Save/source the currently opened file
-nnoremap('<Leader><Leader>x', ':w<CR>:source %<CR>')
+map('n', '<Leader><Leader>x', ':w<CR>:source %<CR>')
+
+-- Trouble keymaps
+map("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
+map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>")
+map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>")
+map("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
+map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
+map("n", "gR", "<cmd>Trouble lsp_references<cr>")
+
+-- automatically rebalance windows on vim resize
+vim.api.nvim_create_autocmd({"VimResized"}, {
+    pattern = {"*"},
+    command = ":wincmd =",
+})
+
+-- Maximize current buffer
+map('n', '<leader>-', ':wincmd _<cr>:wincmd |<cr>')
+-- Restore current buffer size
+map('n', '<leader>=', ':wincmd =<cr>')
+
+-- Example config in Lua
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_italic_functions = true
+vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+
+-- Change the "hint" color to the "orange" color, and make the "error" color bright red
+vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
+
+-- Load the colorscheme
+vim.cmd[[colorscheme tokyonight]]
 
 vim.cmd [[
-    colorscheme gruvbox
-    highlight Normal guibg=none
-    " automatically rebalance windows on vim resize
-    autocmd VimResized * :wincmd =
-    " zoom a vim pane, <C-w>= to re-balance
-    nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
-    nnoremap <leader>= :wincmd =<cr>
-    let g:VtrStripLeadingWhitespace = 0
-    let g:VtrClearEmptyLines = 0
-    let g:VtrAppendNewline = 1
-    let g:loaded_perl_provider = 0
+highlight Normal guibg=none
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+let g:loaded_perl_provider = 0
 ]]
-
