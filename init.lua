@@ -108,10 +108,14 @@ map("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
 map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
 map("n", "gR", "<cmd>Trouble lsp_references<cr>")
 
+-- Make a group that auto-clears auto-commands to avoid duplicate registers
+local resize_group = vim.api.nvim_create_augroup("OnResize", { clear = true })
+
 -- automatically rebalance windows on vim resize
 vim.api.nvim_create_autocmd({"VimResized"}, {
     pattern = {"*"},
     command = ":wincmd =",
+    group = resize_group,
 })
 
 -- Maximize current buffer
@@ -130,10 +134,10 @@ vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 -- Load the colorscheme
 vim.cmd[[colorscheme tokyonight]]
 
-vim.cmd [[
-highlight Normal guibg=none
-let g:VtrStripLeadingWhitespace = 0
-let g:VtrClearEmptyLines = 0
-let g:VtrAppendNewline = 1
-let g:loaded_perl_provider = 0
-]]
+
+vim.g['VtrStripLeadingWhitespace'] = 0
+vim.g['VtrClearEmptyLines'] = 0
+vim.g['VtrAppendNewline'] = 1
+vim.g['loaded_perl_provider'] = 0
+
+vim.cmd [[highlight Normal guibg=none]]
