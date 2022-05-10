@@ -108,14 +108,24 @@ map("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
 map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
 map("n", "gR", "<cmd>Trouble lsp_references<cr>")
 
--- Make a group that auto-clears auto-commands to avoid duplicate registers
-local resize_group = vim.api.nvim_create_augroup("OnResize", { clear = true })
+-- Autocommand grouping for Yank related events
+local on_yank_group = vim.api.nvim_create_augroup("OnYank", { clear = true })
+
+vim.api.nvim_create_autocmd({"TextYankPost"}, {
+    -- command = "silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=150 }",
+    callback = function()
+        vim.highlight.on_yank { higroup='IncSearch', timeout=150 }
+    end,
+    group = on_yank_group,
+})
+
+-- Autocommand grouping for Resize related events
+local on_resize_group = vim.api.nvim_create_augroup("OnResize", { clear = true })
 
 -- automatically rebalance windows on vim resize
 vim.api.nvim_create_autocmd({"VimResized"}, {
-    pattern = {"*"},
     command = ":wincmd =",
-    group = resize_group,
+    group = on_resize_group,
 })
 
 -- Maximize current buffer
@@ -133,7 +143,6 @@ vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
 -- Load the colorscheme
 vim.cmd[[colorscheme tokyonight]]
-
 
 vim.g['VtrStripLeadingWhitespace'] = 0
 vim.g['VtrClearEmptyLines'] = 0
