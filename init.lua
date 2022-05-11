@@ -66,6 +66,10 @@ end
 
 map('i', '<C-P>', insert_random_pokemon)
 
+-- Buffer movement
+map('n', '<C-Right>', ":BufferNext<CR>")
+map('n', '<C-Left>', ":BufferPrevious<CR>")
+
 -- Debugging
 map('n', '<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
 map('n', '<Leader>bc', "<cmd>lua require'dap'.continue()<CR>")
