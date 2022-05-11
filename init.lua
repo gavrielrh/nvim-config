@@ -7,6 +7,7 @@ require('lsp_settings')
 -- Settings for autocomplete
 require('completion')
 
+
 -- local user = os.getenv("USER")
 local homedir = os.getenv("HOME")
 
@@ -38,6 +39,14 @@ vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.colorcolumn = '80'
 vim.opt.signcolumn = 'yes'
 
+require('bufferline').setup {
+    options = {
+        diagnostics = "nvim_lsp",
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+    }
+}
+
 local map = function(mode, lhs, rhs, opts)
     opts = opts or {
         noremap = true,
@@ -46,25 +55,14 @@ local map = function(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-local random_pokemon = function()
-    local res = require("pokeapi").get_resources("pokemon", 100000, 0)
-    if res then
-        local results = res['results']
-        local index = math.random(1, #results)
-        return results[index]['name']
-    end
-end
+-- Pokemon!!
+-- map('i', '<C-P>', require("pokemon").insert_random_pokemon)
+map('i', '<C-P>', require("pokemon").insert_random_pokemon_move)
 
-local insert_random_pokemon = function()
-    local pos = vim.api.nvim_win_get_cursor(0)
-    local row = pos[1] - 1
-    local col = pos[2]
-    local pokemon = random_pokemon() .. " "
-    vim.api.nvim_buf_set_text(0, row, col, row, col, { pokemon })
-    vim.api.nvim_win_set_cursor(0, { row + 1, col + #pokemon })
-end
-
-map('i', '<C-P>', insert_random_pokemon)
+-- Buffer movement
+map('n', '<A-l>', ":BufferLineCycleNext<CR>")
+map('n', '<A-h>', ":BufferLineCyclePrev<CR>")
+map('n', '<A-j>', ":BufferLinePickClose<CR>")
 
 -- Buffer movement
 map('n', '<C-Right>', ":BufferNext<CR>")
@@ -86,6 +84,9 @@ map('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 
 -- Undotree
 map('n', '<F5>', ':UndotreeToggle<CR>')
+
+-- Filetree
+map('n', '<F4>', ':NvimTreeToggle<CR>')
 
 -- Markdown formatting
 -- nnoremap('<Leader>p', ':Glow<CR>')

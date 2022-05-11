@@ -65,7 +65,7 @@ return require('packer').startup(function(use)
     use 'kyazdani42/nvim-tree.lua'
 
     -- Tabs
-    use 'romgrk/barbar.nvim'
+    use { 'akinsho/bufferline.nvim', tag = "v2.*" }
 
     -- Troubleshooting list
     use "folke/trouble.nvim"
@@ -74,7 +74,6 @@ return require('packer').startup(function(use)
     use 'nvim-lualine/lualine.nvim'
 
     -- Personal
-    -- use '/home/mudribbit/plugins/stackmap.nvim'
     use 'gavrielrh/pokeapi.nvim'
 end)
 
