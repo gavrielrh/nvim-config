@@ -1,3 +1,4 @@
+require('impatient')
 -- Plugins... duh
 require('plugins')
 -- Some helpful functions for inspecting lua globals (P(table), R(module))
@@ -63,10 +64,6 @@ map('i', '<C-P>', require("pokemon").insert_random_pokemon_move)
 map('n', '<A-l>', ":BufferLineCycleNext<CR>")
 map('n', '<A-h>', ":BufferLineCyclePrev<CR>")
 map('n', '<A-j>', ":BufferLinePickClose<CR>")
-
--- Buffer movement
-map('n', '<C-Right>', ":BufferNext<CR>")
-map('n', '<C-Left>', ":BufferPrevious<CR>")
 
 -- Debugging
 map('n', '<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
