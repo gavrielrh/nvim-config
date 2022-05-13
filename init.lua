@@ -1,5 +1,6 @@
 local safe_require = function(name)
-    pcall(require, name)
+    local _, result = pcall(require, name)
+    return result
 end
 
 -- Caching for blazingly fast start times
@@ -45,7 +46,7 @@ vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.colorcolumn = '80'
 vim.opt.signcolumn = 'yes'
 
-require('bufferline').setup {
+safe_require('bufferline').setup {
     options = {
         diagnostics = "nvim_lsp",
         show_buffer_close_icons = false,
@@ -63,7 +64,7 @@ end
 
 -- Pokemon!!
 -- map('i', '<C-P>', require("pokemon").insert_random_pokemon)
--- map('i', '<C-P>', require("pokemon").insert_random_pokemon_move)
+map('i', '<C-P>', safe_require("pokemon").insert_random_pokemon_move)
 
 -- Buffer movement
 map('n', '<A-l>', ":BufferLineCycleNext<CR>")
