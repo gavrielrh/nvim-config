@@ -1,12 +1,17 @@
-require('impatient')
+local safe_require = function(name)
+    pcall(require, name)
+end
+
+-- Caching for blazingly fast start times
+safe_require('impatient')
 -- Plugins... duh
-require('plugins')
+safe_require('plugins')
 -- Some helpful functions for inspecting lua globals (P(table), R(module))
-require('globals')
+safe_require('globals')
 -- Settings for the builtin LSP
-require('lsp_settings')
+safe_require('lsp_settings')
 -- Settings for autocomplete
-require('completion')
+safe_require('completion')
 
 
 -- local user = os.getenv("USER")
@@ -58,7 +63,7 @@ end
 
 -- Pokemon!!
 -- map('i', '<C-P>', require("pokemon").insert_random_pokemon)
-map('i', '<C-P>', require("pokemon").insert_random_pokemon_move)
+-- map('i', '<C-P>', require("pokemon").insert_random_pokemon_move)
 
 -- Buffer movement
 map('n', '<A-l>', ":BufferLineCycleNext<CR>")
