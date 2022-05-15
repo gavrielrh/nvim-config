@@ -14,7 +14,6 @@ safe_require('lsp_settings')
 -- Settings for autocomplete
 safe_require('completion')
 
-
 -- local user = os.getenv("USER")
 local homedir = os.getenv("HOME")
 
@@ -46,14 +45,6 @@ vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.colorcolumn = '80'
 vim.opt.signcolumn = 'yes'
 
-safe_require('bufferline').setup {
-    options = {
-        diagnostics = "nvim_lsp",
-        show_buffer_close_icons = false,
-        show_close_icon = false,
-    }
-}
-
 local map = function(mode, lhs, rhs, opts)
     opts = opts or {
         noremap = true,
@@ -64,12 +55,16 @@ end
 
 -- Pokemon!!
 -- map('i', '<C-P>', require("pokemon").insert_random_pokemon)
-map('i', '<C-P>', safe_require("pokemon").insert_random_pokemon_move)
+-- map('i', '<C-P>', safe_require("pokemon").insert_random_pokemon_move)
 
 -- Buffer movement
 map('n', '<A-l>', ":BufferLineCycleNext<CR>")
 map('n', '<A-h>', ":BufferLineCyclePrev<CR>")
 map('n', '<A-j>', ":BufferLinePickClose<CR>")
+
+for i = 1, 10 do
+    map('n', '<A-'..i..'>', ":BufferLineGoToBuffer "..i.."<CR>")
+end
 
 -- Debugging
 map('n', '<Leader>b', "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
