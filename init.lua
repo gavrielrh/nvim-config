@@ -60,7 +60,7 @@ end
 -- Buffer movement
 map('n', '<A-l>', ":BufferLineCycleNext<CR>")
 map('n', '<A-h>', ":BufferLineCyclePrev<CR>")
-map('n', '<A-j>', ":BufferLinePickClose<CR>")
+map('n', '<A-j>', ":BufferLinePick<CR>")
 
 for i = 1, 10 do
     map('n', '<A-'..i..'>', ":BufferLineGoToBuffer "..i.."<CR>")

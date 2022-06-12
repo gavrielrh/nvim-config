@@ -39,7 +39,8 @@ end
 -- map buffer local keybindings when the language server attaches
 local servers = {
     'pyright', 'rust_analyzer', 'tsserver',
-    'intelephense', 'solargraph', 'gopls'
+    'intelephense', 'solargraph', 'gopls',
+    'clangd'
 }
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
@@ -78,5 +79,10 @@ require'lspconfig'.sumneko_lua.setup {
             },
         },
     },
+}
+
+require'lspconfig'.denols.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
 

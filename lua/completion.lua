@@ -10,6 +10,12 @@ lspkind.init()
 local cmp = require'cmp'
 
 cmp.setup({
+    -- nvim-cmp by default disables autocomplete for prompt buffers
+    enabled = function ()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+            or require("cmp_dap").is_dap_buffer()
+    end,
+
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
@@ -36,6 +42,7 @@ cmp.setup({
         { name = "path" },
         { name = "luasnip" },
         { name = "buffer" },
+        { name = "dap" },
     }),
     formatting = {
         -- Youtube: How to set up nice formatting for your sources.

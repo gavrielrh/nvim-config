@@ -48,6 +48,7 @@ return require('packer').startup(function(use)
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
     use 'onsails/lspkind.nvim'
+    use 'rcarriga/cmp-dap'
 
     -- Comments
     use { 'numToStr/Comment.nvim' }
