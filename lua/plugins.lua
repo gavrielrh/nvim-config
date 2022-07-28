@@ -11,11 +11,17 @@ return require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig'
     use "williamboman/nvim-lsp-installer"
     use 'folke/lsp-colors.nvim'
+    use 'folke/lua-dev.nvim'
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'jose-elias-alvarez/nvim-lsp-ts-utils'
 
     -- Telescope
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
     use 'nvim-treesitter/playground'
 
     use 'lewis6991/impatient.nvim'
@@ -25,7 +31,6 @@ return require('packer').startup(function(use)
     use 'lewis6991/gitsigns.nvim'
 
     -- Colorscheme
-    use 'gruvbox-community/gruvbox'
     -- use 'sonph/onehalf'
     use 'folke/tokyonight.nvim'
 
@@ -75,6 +80,9 @@ return require('packer').startup(function(use)
 
     -- Status line
     use 'nvim-lualine/lualine.nvim'
+
+    -- Wooo pretty tmux-pipeline
+    use 'vimpostor/vim-tpipeline'
 
     -- Personal
     use 'gavrielrh/pokeapi.nvim'

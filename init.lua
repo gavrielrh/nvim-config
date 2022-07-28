@@ -1,18 +1,13 @@
-local safe_require = function(name)
-    local _, result = pcall(require, name)
-    return result
-end
-
 -- Caching for blazingly fast start times
-safe_require('impatient')
+require('impatient')
 -- Plugins... duh
-safe_require('plugins')
+require('plugins')
 -- Some helpful functions for inspecting lua globals (P(table), R(module))
-safe_require('globals')
+require('globals')
 -- Settings for the builtin LSP
-safe_require('lsp_settings')
+require('lsp_settings')
 -- Settings for autocomplete
-safe_require('completion')
+require('completion')
 
 -- local user = os.getenv("USER")
 local homedir = os.getenv("HOME")
@@ -63,7 +58,7 @@ map('n', '<A-h>', ":BufferLineCyclePrev<CR>")
 map('n', '<A-j>', ":BufferLinePick<CR>")
 
 for i = 1, 10 do
-    map('n', '<A-'..i..'>', ":BufferLineGoToBuffer "..i.."<CR>")
+    map('n', '<A-' .. i .. '>', ":BufferLineGoToBuffer " .. i .. "<CR>")
 end
 
 -- Debugging
@@ -114,10 +109,10 @@ map("n", "gR", "<cmd>Trouble lsp_references<cr>")
 -- Autocommand grouping for Yank related events
 local on_yank_group = vim.api.nvim_create_augroup("OnYank", { clear = true })
 
-vim.api.nvim_create_autocmd({"TextYankPost"}, {
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     -- command = "silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=150 }",
     callback = function()
-        vim.highlight.on_yank { higroup='IncSearch', timeout=150 }
+        vim.highlight.on_yank { higroup = 'IncSearch', timeout = 150 }
     end,
     group = on_yank_group,
 })
@@ -126,7 +121,7 @@ vim.api.nvim_create_autocmd({"TextYankPost"}, {
 local on_resize_group = vim.api.nvim_create_augroup("OnResize", { clear = true })
 
 -- automatically rebalance windows on vim resize
-vim.api.nvim_create_autocmd({"VimResized"}, {
+vim.api.nvim_create_autocmd({ "VimResized" }, {
     command = ":wincmd =",
     group = on_resize_group,
 })
@@ -145,11 +140,14 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
 -- Load the colorscheme
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight]]
 
 vim.g['VtrStripLeadingWhitespace'] = 0
 vim.g['VtrClearEmptyLines'] = 0
 vim.g['VtrAppendNewline'] = 1
 vim.g['loaded_perl_provider'] = 0
+
+-- Get that sweet sweet screen real-estate
+-- vim.o['cmdheight'] = 0
 
 vim.cmd [[highlight Normal guibg=none]]
