@@ -8,8 +8,9 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- LSP!!
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
     use 'neovim/nvim-lspconfig'
-    use "williamboman/nvim-lsp-installer"
     use 'folke/lsp-colors.nvim'
     use 'folke/lua-dev.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'

@@ -1,7 +1,7 @@
-require("nvim-lsp-installer").setup {
-    -- automatically detect which servers to install
-    -- (based on which servers are set up via lspconfig)
-}
+require("mason").setup()
+require("mason-lspconfig").setup({
+    automatic_installation = true
+})
 
 local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
@@ -57,7 +57,8 @@ end
 local servers = {
     'pyright', 'rust_analyzer',
     'intelephense', 'solargraph', 'gopls',
-    'clangd', 'yamlls', 'ansiblels', 'bashls'
+    'clangd', 'yamlls', 'ansiblels', 'bashls',
+    'sumneko_lua', 'elixirls'
 }
 for _, lsp in pairs(servers) do
     lspconfig[lsp].setup {

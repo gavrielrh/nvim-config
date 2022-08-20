@@ -148,6 +148,6 @@ vim.g['VtrAppendNewline'] = 1
 vim.g['loaded_perl_provider'] = 0
 
 -- Get that sweet sweet screen real-estate
--- vim.o['cmdheight'] = 0
+vim.o['cmdheight'] = 0
 
 vim.cmd [[highlight Normal guibg=none]]
