@@ -83,7 +83,7 @@ return require('packer').startup(function(use)
     use 'nvim-lualine/lualine.nvim'
 
     -- Wooo pretty tmux-pipeline
-    use 'vimpostor/vim-tpipeline'
+    -- use 'vimpostor/vim-tpipeline'
 
     -- Personal
     use 'gavrielrh/pokeapi.nvim'

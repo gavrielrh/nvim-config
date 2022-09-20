@@ -1,15 +1,6 @@
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup {
     -- A list of parser names, or "all"
-    ensure_installed = {
-        "c", "lua", "rust",
-        "php", "python", "json",
-        "make", "go", "tsx",
-        "css", "bash", "ruby",
-        "fish", "yaml", "html",
-        "llvm", "toml", "regex",
-        "javascript", "typescript", "graphql",
-        "markdown", "dockerfile", "jsdoc",
-    },
+    ensure_installed = 'all',
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -57,5 +48,20 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         use_virtual_text = true,
         lint_events = {"BufWrite", "CursorHold"},
+    },
+
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        }
+    },
+
+    -- Use treesitter for indentation with =
+    indent = {
+        enable = true
     }
 }

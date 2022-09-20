@@ -1,5 +1,5 @@
 -- Caching for blazingly fast start times
-require('impatient')
+pcall(require, 'impatient')
 -- Plugins... duh
 require('plugins')
 -- Some helpful functions for inspecting lua globals (P(table), R(module))
@@ -20,11 +20,11 @@ vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 vim.opt.exrc = true
 vim.opt.hidden = true
 vim.opt.errorbells = false
@@ -148,6 +148,6 @@ vim.g['VtrAppendNewline'] = 1
 vim.g['loaded_perl_provider'] = 0
 
 -- Get that sweet sweet screen real-estate
-vim.o['cmdheight'] = 0
+vim.o.cmdheight = 0
 
 vim.cmd [[highlight Normal guibg=none]]
