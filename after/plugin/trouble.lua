@@ -1,2 +1,2 @@
 -- Trouble, use :TroubleToggle
-require("trouble").setup {}
+require('trouble').setup({})

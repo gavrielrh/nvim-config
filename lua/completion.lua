@@ -1,19 +1,19 @@
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
-local ok, lspkind = pcall(require, "lspkind")
+local ok, lspkind = pcall(require, 'lspkind')
 if not ok then
   return
 end
 
 lspkind.init()
 
-local cmp = require'cmp'
+local cmp = require('cmp')
 
 cmp.setup({
   -- nvim-cmp by default disables autocomplete for prompt buffers
-  enabled = function ()
-    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-      or require("cmp_dap").is_dap_buffer()
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt'
+      or require('cmp_dap').is_dap_buffer()
   end,
 
   snippet = {
@@ -37,26 +37,26 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
-    { name = "nvim_lua" },
-    { name = "nvim_lsp" },
-    { name = "path" },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "dap" },
+    { name = 'nvim_lua' },
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'dap' },
   }),
   formatting = {
     -- Youtube: How to set up nice formatting for your sources.
-    format = lspkind.cmp_format {
+    format = lspkind.cmp_format({
       with_text = true,
       menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
-        tn = "[TabNine]",
+        buffer = '[buf]',
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[api]',
+        path = '[path]',
+        luasnip = '[snip]',
+        tn = '[TabNine]',
       },
-    },
+    }),
   },
 })
 
@@ -65,25 +65,24 @@ cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
-      { name = 'buffer' },
-    })
+    { name = 'buffer' },
+  }),
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'buffer' }
-  }
+    { name = 'buffer' },
+  },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = 'path' },
   }, {
-      { name = 'cmdline' }
-    })
+    { name = 'cmdline' },
+  }),
 })
-

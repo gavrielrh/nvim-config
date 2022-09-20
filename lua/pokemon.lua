@@ -1,7 +1,7 @@
 M = {}
 
 M.random_pokemon = function()
-  local res = require("pokeapi").get_resources("pokemon", 100000, 0)
+  local res = require('pokeapi').get_resources('pokemon', 100000, 0)
   if res then
     local results = res['results']
     local index = math.random(1, #results)
@@ -18,18 +18,18 @@ local insert_text = function(text)
 end
 
 M.insert_random_pokemon = function()
-  local pokemon = M.random_pokemon()['name'] .. " "
+  local pokemon = M.random_pokemon()['name'] .. ' '
   insert_text(pokemon)
 end
 
 M.insert_random_pokemon_move = function()
   local pokemon_name = M.random_pokemon()['name']
-  local pokemon = require("pokeapi").get_resource("pokemon", pokemon_name)
+  local pokemon = require('pokeapi').get_resource('pokemon', pokemon_name)
   local moves = pokemon['moves']
   local index = math.random(1, #moves)
   local move = moves[index]['move']
   local move_name = move['name']
-  local output = pokemon_name .. " used " .. move_name .. "!"
+  local output = pokemon_name .. ' used ' .. move_name .. '!'
   insert_text(output)
 end
 

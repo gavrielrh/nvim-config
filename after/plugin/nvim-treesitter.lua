@@ -1,4 +1,4 @@
-require("nvim-treesitter.configs").setup {
+require('nvim-treesitter.configs').setup({
   -- A list of parser names, or "all"
   ensure_installed = 'all',
 
@@ -47,21 +47,21 @@ require("nvim-treesitter.configs").setup {
   query_linter = {
     enable = true,
     use_virtual_text = true,
-    lint_events = {"BufWrite", "CursorHold"},
+    lint_events = { 'BufWrite', 'CursorHold' },
   },
 
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    }
+      init_selection = 'gnn',
+      node_incremental = 'grn',
+      scope_incremental = 'grc',
+      node_decremental = 'grm',
+    },
   },
 
   -- Use treesitter for indentation with =
   indent = {
-    enable = true
-  }
-}
+    enable = true,
+  },
+})

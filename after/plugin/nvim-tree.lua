@@ -1,2 +1,2 @@
 -- Filetree, use :NvimTreeToggle
-require'nvim-tree'.setup {}
+require('nvim-tree').setup({})
