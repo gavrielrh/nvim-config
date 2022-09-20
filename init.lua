@@ -24,7 +24,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
--- vim.opt.smartindent = true
+vim.opt.smartindent = true
 vim.opt.exrc = true
 vim.opt.hidden = true
 vim.opt.errorbells = false
@@ -41,11 +41,11 @@ vim.opt.colorcolumn = '80'
 vim.opt.signcolumn = 'yes'
 
 local map = function(mode, lhs, rhs, opts)
-    opts = opts or {
-        noremap = true,
-        silent = true
-    }
-    vim.keymap.set(mode, lhs, rhs, opts)
+  opts = opts or {
+    noremap = true,
+    silent = true
+  }
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 -- Pokemon!!
@@ -58,7 +58,7 @@ map('n', '<A-h>', ":BufferLineCyclePrev<CR>")
 map('n', '<A-j>', ":BufferLinePick<CR>")
 
 for i = 1, 10 do
-    map('n', '<A-' .. i .. '>', ":BufferLineGoToBuffer " .. i .. "<CR>")
+  map('n', '<A-' .. i .. '>', ":BufferLineGoToBuffer " .. i .. "<CR>")
 end
 
 -- Debugging
@@ -110,11 +110,11 @@ map("n", "gR", "<cmd>Trouble lsp_references<cr>")
 local on_yank_group = vim.api.nvim_create_augroup("OnYank", { clear = true })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-    -- command = "silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=150 }",
-    callback = function()
-        vim.highlight.on_yank { higroup = 'IncSearch', timeout = 150 }
-    end,
-    group = on_yank_group,
+  -- command = "silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=150 }",
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 150 }
+  end,
+  group = on_yank_group,
 })
 
 -- Autocommand grouping for Resize related events
@@ -122,25 +122,14 @@ local on_resize_group = vim.api.nvim_create_augroup("OnResize", { clear = true }
 
 -- automatically rebalance windows on vim resize
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-    command = ":wincmd =",
-    group = on_resize_group,
+  command = ":wincmd =",
+  group = on_resize_group,
 })
 
 -- Maximize current buffer
 map('n', '<leader>-', ':wincmd _<cr>:wincmd |<cr>')
 -- Restore current buffer size
 map('n', '<leader>=', ':wincmd =<cr>')
-
--- Example config in Lua
-vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-
--- Change the "hint" color to the "orange" color, and make the "error" color bright red
-vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
-
--- Load the colorscheme
-vim.cmd [[colorscheme tokyonight]]
 
 vim.g['VtrStripLeadingWhitespace'] = 0
 vim.g['VtrClearEmptyLines'] = 0
@@ -151,3 +140,15 @@ vim.g['loaded_perl_provider'] = 0
 vim.o.cmdheight = 0
 
 vim.cmd [[highlight Normal guibg=none]]
+
+-- TokyoNight Color Scheme
+-- vim.g.tokyonight_style = "night"
+-- vim.g.tokyonight_italic_functions = true
+-- vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+-- vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
+-- vim.cmd [[colorscheme tokyonight]]
+
+-- Let's try out Catppuccin!
+vim.g.catppuccin_flavour = "mocha"
+require("catppuccin").setup()
+vim.cmd [[colorscheme catppuccin]]

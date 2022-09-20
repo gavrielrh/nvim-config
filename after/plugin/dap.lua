@@ -17,11 +17,6 @@ dap.configurations.php = {
 
 -- Python
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
-dap.adapters.php = {
-    type = 'executable',
-    command = 'node',
-    args = { '~/vscode-php-debug/out/phpDebug.js' }
-}
 
 -- Rust
 dap.adapters.lldb = {
