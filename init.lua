@@ -8,6 +8,8 @@ require('globals')
 require('lsp_settings')
 -- Settings for autocomplete
 require('completion')
+-- Formatting
+require('formatter')
 
 -- local user = os.getenv("USER")
 local homedir = os.getenv('HOME')

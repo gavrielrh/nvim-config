@@ -4,7 +4,6 @@ require('mason-lspconfig').setup({
 })
 
 local lspconfig = require('lspconfig')
-local null_ls = require('null-ls')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
@@ -68,6 +67,7 @@ local servers = {
   'bashls',
   'sumneko_lua',
   'elixirls',
+  'eslint'
 }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
@@ -91,15 +91,6 @@ lspconfig.tsserver.setup({
 
     on_attach(client, bufnr)
   end,
-})
-
-null_ls.setup({
-  sources = {
-    null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.formatting.eslint_d,
-  },
-  on_attach = on_attach,
 })
 
 local luadev = require('lua-dev').setup({

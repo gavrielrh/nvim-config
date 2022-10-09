@@ -13,7 +13,6 @@ return require('packer').startup(function(use)
   use('neovim/nvim-lspconfig')
   use('folke/lsp-colors.nvim')
   use('folke/lua-dev.nvim')
-  use('jose-elias-alvarez/null-ls.nvim')
   use('jose-elias-alvarez/nvim-lsp-ts-utils')
 
   -- Telescope
@@ -82,6 +81,9 @@ return require('packer').startup(function(use)
 
   -- Status line
   use('nvim-lualine/lualine.nvim')
+
+  -- Formatting
+  use('mhartington/formatter.nvim')
 
   -- Wooo pretty tmux-pipeline
   -- use 'vimpostor/vim-tpipeline'
