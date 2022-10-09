@@ -67,7 +67,7 @@ local servers = {
   'bashls',
   'sumneko_lua',
   'elixirls',
-  'eslint'
+  'eslint',
 }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({

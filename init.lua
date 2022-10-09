@@ -89,6 +89,29 @@ map('n', '<F4>', ':NvimTreeToggle<CR>')
 -- Testing lua plugins (_spec.lua)
 map('n', '<Leader>t', '<Plug>PlenaryTestFile')
 
+-- Terminal settings
+local vim_term = vim.api.nvim_create_augroup('vim_term', { clear = true })
+-- start insert mode when moving to a terminal window
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
+  callback = function()
+    if vim.bo.buftype == 'terminal' then
+      vim.cmd('startinsert')
+    end
+  end,
+  group = vim_term,
+})
+-- prevents insert mode when the terminal process has exited
+vim.api.nvim_create_autocmd('TermClose', {
+  callback = function(ctx)
+    vim.cmd('stopinsert')
+    vim.api.nvim_create_autocmd('TermEnter', {
+      command = 'stopinsert',
+      buffer = ctx.buf,
+    })
+  end,
+  nested = true,
+  group = vim_term,
+})
 -- Opening up the terminal?
 map('n', '<Leader>tr', ':terminal<CR>')
 -- Getting out of the terminal

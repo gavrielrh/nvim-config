@@ -1,12 +1,12 @@
 local function prettier()
   return {
     exe = 'prettier',
-    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+    args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0) },
     stdin = true,
   }
 end
 
-require('formatter').setup {
+require('formatter').setup({
   logging = true,
   filetype = {
     javascript = { prettier },
@@ -26,12 +26,11 @@ require('formatter').setup {
     graphql = { prettier },
     html = { prettier },
   },
-}
+})
 
-vim.cmd[[
+vim.cmd([[
 augroup FormatAutogroup
   autocmd!
   autocmd BufWritePost * FormatWrite
 augroup END
-]]
-
+]])
