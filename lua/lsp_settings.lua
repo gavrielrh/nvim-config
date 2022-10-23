@@ -1,12 +1,12 @@
+require('neodev').setup({})
+
 require('mason').setup()
 require('mason-lspconfig').setup({
   automatic_installation = true,
 })
 
 local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').update_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.g.markdown_fenced_languages = {
   'ts=typescript',
@@ -93,17 +93,15 @@ lspconfig.tsserver.setup({
   end,
 })
 
-local luadev = require('lua-dev').setup({
-  -- add any options here, or leave empty to use the default settings
-  lspconfig = {
-    cmd = { 'lua-language-server' },
-    on_attach = on_attach,
-    capabilities = capabilities,
+lspconfig.sumneko_lua.setup({
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = 'Replace',
+      },
+    },
   },
 })
-
-lspconfig.sumneko_lua.setup(luadev)
-
 -- require'lspconfig'.denols.setup {
 --     on_attach = on_attach,
 --     capabilities = capabilities,

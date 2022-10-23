@@ -3,7 +3,7 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd([[packadd packer.nvim]])
 
-return require('packer').startup(function(use)
+return require('packer').startup(function(use, use_rocks)
   -- Packer can manage itself
   use('wbthomason/packer.nvim')
 
@@ -12,7 +12,7 @@ return require('packer').startup(function(use)
   use('williamboman/mason-lspconfig.nvim')
   use('neovim/nvim-lspconfig')
   use('folke/lsp-colors.nvim')
-  use('folke/lua-dev.nvim')
+  use('folke/neodev.nvim')
   use('jose-elias-alvarez/nvim-lsp-ts-utils')
 
   -- Telescope
@@ -84,6 +84,14 @@ return require('packer').startup(function(use)
 
   -- Formatting
   use('mhartington/formatter.nvim')
+
+  -- Helpers
+  use({
+    'folke/which-key.nvim',
+    config = function()
+      require('which-key').setup({})
+    end,
+  })
 
   -- Wooo pretty tmux-pipeline
   -- use 'vimpostor/vim-tpipeline'
