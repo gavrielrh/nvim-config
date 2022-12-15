@@ -27,10 +27,10 @@ require('formatter').setup({
     html = { prettier },
   },
 })
-
-vim.cmd([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost * FormatWrite
-augroup END
-]])
+-- Auto format on save
+-- vim.cmd([[
+-- augroup FormatAutogroup
+--   autocmd!
+--   autocmd BufWritePost * FormatWrite
+-- augroup END
+-- ]])

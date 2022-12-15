@@ -67,6 +67,7 @@ local servers = {
   'bashls',
   'sumneko_lua',
   'elixirls',
+  'prismals',
   'eslint',
 }
 for _, lsp in pairs(servers) do
@@ -91,6 +92,7 @@ lspconfig.tsserver.setup({
 
     on_attach(client, bufnr)
   end,
+  root_dir = lspconfig.util.root_pattern("package.json"),
 })
 
 lspconfig.sumneko_lua.setup({
@@ -102,7 +104,9 @@ lspconfig.sumneko_lua.setup({
     },
   },
 })
--- require'lspconfig'.denols.setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
--- }
+lspconfig.denols.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
