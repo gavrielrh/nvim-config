@@ -1,7 +1,19 @@
--- Caching for blazingly fast start times
-pcall(require, 'impatient')
--- Plugins... duh
-require('plugins')
+vim.g.mapleader = ' '
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("plugins")
+
 -- Some helpful functions for inspecting lua globals (P(table), R(module))
 require('globals')
 -- Settings for the builtin LSP
@@ -10,11 +22,11 @@ require('lsp_settings')
 require('completion')
 -- Formatting
 require('formatter')
+require('mini.cursorword').setup({})
 
 -- local user = os.getenv("USER")
 local homedir = os.getenv('HOME')
 
-vim.g.mapleader = ' '
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.swapfile = false
@@ -52,7 +64,7 @@ end
 
 -- Pokemon!!
 -- map('i', '<C-P>', require("pokemon").insert_random_pokemon)
--- map('i', '<C-P>', safe_require("pokemon").insert_random_pokemon_move)
+-- map('i', '<C-P>', require("pokemon").insert_random_pokemon_move)
 
 -- Buffer movement
 map('n', '<A-l>', ':BufferLineCycleNext<CR>')
@@ -164,7 +176,7 @@ vim.g['VtrAppendNewline'] = 1
 vim.g['loaded_perl_provider'] = 0
 
 -- Get that sweet sweet screen real-estate
-vim.o.cmdheight = 0
+-- vim.o.cmdheight = 0
 
 vim.cmd([[highlight Normal guibg=none]])
 

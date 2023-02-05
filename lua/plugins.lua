@@ -1,103 +1,98 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- Only required if you have packer configured as `opt`
-vim.cmd([[packadd packer.nvim]])
-
-return require('packer').startup(function(use, use_rocks)
+return {
   -- Packer can manage itself
-  use('wbthomason/packer.nvim')
+  'wbthomason/packer.nvim',
 
   -- LSP!!
-  use('williamboman/mason.nvim')
-  use('williamboman/mason-lspconfig.nvim')
-  use('neovim/nvim-lspconfig')
-  use('folke/lsp-colors.nvim')
-  use('folke/neodev.nvim')
-  use('jose-elias-alvarez/nvim-lsp-ts-utils')
+  'williamboman/mason.nvim',
+  'williamboman/mason-lspconfig.nvim',
+  'neovim/nvim-lspconfig',
+  'folke/lsp-colors.nvim',
+  'folke/neodev.nvim',
+  'jose-elias-alvarez/nvim-lsp-ts-utils',
 
   -- Telescope
-  use('nvim-lua/plenary.nvim')
-  use('nvim-telescope/telescope.nvim')
-  use({
+  'nvim-lua/plenary.nvim',
+  'nvim-telescope/telescope.nvim',
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-  })
-  use('nvim-treesitter/playground')
+    build = ':TSUpdate'
+  },
+  'nvim-treesitter/playground',
 
-  use('lewis6991/impatient.nvim')
+  'lewis6991/impatient.nvim',
 
   -- Git
-  use('tpope/vim-fugitive')
-  use('lewis6991/gitsigns.nvim')
+  'tpope/vim-fugitive',
+  'lewis6991/gitsigns.nvim',
 
   -- Colorscheme
   -- use 'sonph/onehalf'
   -- use 'folke/tokyonight.nvim'
-  use({ 'catppuccin/nvim', as = 'catppuccin' })
+  { 'catppuccin/nvim', name = 'catppuccin' },
 
   -- Undotree
-  use('mbbill/undotree')
+  'mbbill/undotree',
 
   -- Tmux
-  use('christoomey/vim-tmux-navigator')
-  use('christoomey/vim-tmux-runner')
+  'christoomey/vim-tmux-navigator',
+  'christoomey/vim-tmux-runner',
 
   -- Markdown preview
-  use({ 'ellisonleao/glow.nvim', branch = 'main' })
+  { 'ellisonleao/glow.nvim', branch = 'main' },
 
   -- Completion
-  use('hrsh7th/cmp-nvim-lsp')
-  use('hrsh7th/cmp-buffer')
-  use('hrsh7th/cmp-path')
-  use('hrsh7th/cmp-cmdline')
-  use('hrsh7th/nvim-cmp')
-  use('L3MON4D3/LuaSnip')
-  use('saadparwaiz1/cmp_luasnip')
-  use('onsails/lspkind.nvim')
-  use('rcarriga/cmp-dap')
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-cmdline',
+  'hrsh7th/nvim-cmp',
+  'L3MON4D3/LuaSnip',
+  'saadparwaiz1/cmp_luasnip',
+  'onsails/lspkind.nvim',
+  'rcarriga/cmp-dap',
 
   -- Comments
-  use({ 'numToStr/Comment.nvim' })
+  'numToStr/Comment.nvim',
 
   -- Debugging
-  use('mfussenegger/nvim-dap')
-  use('mfussenegger/nvim-dap-python')
+  'mfussenegger/nvim-dap',
+  'mfussenegger/nvim-dap-python',
 
   -- Docs
-  use('nanotee/luv-vimdocs')
-  use('milisims/nvim-luaref')
+  'nanotee/luv-vimdocs',
+  'milisims/nvim-luaref',
 
   -- Icons
-  use('kyazdani42/nvim-web-devicons')
+  'kyazdani42/nvim-web-devicons',
 
   -- Filetree
-  use('kyazdani42/nvim-tree.lua')
+  'kyazdani42/nvim-tree.lua',
 
   -- Tabs
-  use({ 'akinsho/bufferline.nvim', tag = 'v2.*' })
+  { 'akinsho/bufferline.nvim', version = 'v2.*' },
 
   -- Troubleshooting list
-  use('folke/trouble.nvim')
+  'folke/trouble.nvim',
 
   -- Status line
-  use('nvim-lualine/lualine.nvim')
+  'nvim-lualine/lualine.nvim',
 
   -- Formatting
-  use('mhartington/formatter.nvim')
+  'mhartington/formatter.nvim',
 
   -- Helpers
-  use({
+  {
     'folke/which-key.nvim',
     config = function()
       require('which-key').setup({})
     end,
-  })
+  },
 
   -- Wooo pretty tmux-pipeline
   -- use 'vimpostor/vim-tpipeline'
 
   -- Project
-  use({
+  {
     'ahmedkhalf/project.nvim',
     config = function()
       require('project_nvim').setup({
@@ -106,8 +101,21 @@ return require('packer').startup(function(use, use_rocks)
         -- refer to the configuration section below
       })
     end,
-  })
+  },
+
+  -- mini stuff
+ 'echasnovski/mini.nvim',
+
+  {
+    'MrcJkb/haskell-tools.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim', -- optional
+    },
+    -- tag = 'x.y.z' -- [^1]
+  },
 
   -- Personal
-  use('gavrielrh/pokeapi.nvim')
-end)
+  'gavrielrh/pokeapi.nvim',
+}
