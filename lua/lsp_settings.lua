@@ -90,7 +90,6 @@ local servers = {
   'bashls',
   'sumneko_lua',
   'elixirls',
-  'prismals',
   'eslint',
 }
 for _, lsp in pairs(servers) do
